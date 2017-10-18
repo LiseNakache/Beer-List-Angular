@@ -11,8 +11,9 @@ var Beer = require('./beerModel');
 
 app.use(express.static('public'));
 app.use(express.static('node_modules'));
-app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
 
 app.post('/beers', function (req, res, next) {
   Beer.create(req.body, function(err, beer) {
@@ -25,6 +26,7 @@ app.post('/beers', function (req, res, next) {
   });
 });
 
+
 app.get('/beers',function(req, res, next){
   Beer.find({},function(err,newBeer){
     if(err){ return next(error);}
@@ -32,6 +34,7 @@ app.get('/beers',function(req, res, next){
     res.send(newBeer)
   })
 })
+
 
 app.delete('/beers/:id',function(req, res, next){
   Beer.findByIdAndRemove(req.params.id,function(err,newBeer){
@@ -41,10 +44,24 @@ app.delete('/beers/:id',function(req, res, next){
   })
 })
 
+app.post('/beers/:id/comment',function(req, res, next){
+  Beer.findById(req.params.id,function(err,newBeer){
+    if(err){ return next(err);}
+    newBeer.comment.push(req.body)
+    newBeer.save(function (err,commentAdded) {
+      if(err){ return next(err);}
+      console.log("comment added")
+      console.log(newBeer)
+      res.send(newBeer)
+    });
+  })
+})
 
 
 
-// error handler to catch 404 and forward to main error handler
+
+
+
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;

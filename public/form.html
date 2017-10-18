@@ -1,0 +1,17 @@
+<h3> {{beer.name|uppercase}}</h3>
+<h4>Style :{{beer.style}}</h4>
+<img class="beer-img" src="{{beer.image_url}}" />
+<h4>Abv : {{beer.abv}}</h4>
+<h4>Rating : {{beer.ratings}}</h4>
+<h4>{{beer.comment}}</h4>
+
+
+
+
+<a ng-click="toggleInput()" ng-hide="inputComment">Add a Comment</a>
+<input ng-show="inputComment" ng-model="comment"  />
+<h4>{{comment}}</h4>
+<a ng-show="inputComment" ng-click="addComment(beer)"  >Post the Comment</a>
+<br>
+
+<button type="button" class="btn btn-primary" ng-click="removeBeer($index)">Remove</button>
