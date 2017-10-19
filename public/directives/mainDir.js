@@ -4,7 +4,7 @@ app.directive("mainDir", function () {
             beer: "=",
             removeBeer: "&",
         },
-        templateUrl: "form.html",
+        templateUrl: "comment.html",
 
 
 
@@ -19,7 +19,6 @@ app.directive("mainDir", function () {
             }
 
             $scope.addComment = function (beer) {
-                alert('hey')
                 var newComment = $scope.comment
                 $scope.comment = ""
                 console.log(newComment)

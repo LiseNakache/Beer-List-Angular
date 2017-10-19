@@ -14,7 +14,7 @@ app.use(express.static('node_modules'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-
+//POST A NEW BEER//
 app.post('/beers', function (req, res, next) {
   Beer.create(req.body, function(err, beer) {
     if (err) {
@@ -26,7 +26,7 @@ app.post('/beers', function (req, res, next) {
   });
 });
 
-
+// GET ALL THE BEERS//
 app.get('/beers',function(req, res, next){
   Beer.find({},function(err,newBeer){
     if(err){ return next(error);}
@@ -35,7 +35,7 @@ app.get('/beers',function(req, res, next){
   })
 })
 
-
+//DELETE A SINGLE BEER//
 app.delete('/beers/:id',function(req, res, next){
   Beer.findByIdAndRemove(req.params.id,function(err,newBeer){
     if(err){ return next(error);}
@@ -44,6 +44,7 @@ app.delete('/beers/:id',function(req, res, next){
   })
 })
 
+//POST A COMMENT IN A SPECIFIC BEER//
 app.post('/beers/:id/comment',function(req, res, next){
   Beer.findById(req.params.id,function(err,newBeer){
     if(err){ return next(err);}
@@ -56,6 +57,43 @@ app.post('/beers/:id/comment',function(req, res, next){
     });
   })
 })
+
+//GET A SINGLE BEER//
+app.get('/beers/:id',function(req, res, next){
+  Beer.findById(req.params.id,function(err,newBeer){
+    if(err){ return next(error);}
+    console.log(newBeer)
+    res.send(newBeer)
+  })
+})
+
+
+//POST A REVIEW FOR A SPECIFIC BEER//
+app.post('/beers/:id/reviews', function(req, res, next) {
+  Beer.findById(req.params.id,function(err,newBeer){
+    if(err){ return next(err);}
+    newBeer.reviews.push(req.body)
+    newBeer.save(function (err,reviewAdded) {
+      if(err){ return next(err);}
+      console.log("review added")
+      console.log(newBeer)
+      res.send(newBeer)
+    });
+  })
+  });
+
+//DELETE A SPECIFIC REVIEW IN A SPECIFIC BEER//
+  app.delete('/beers/:id/reviews/:reviewid',function(req, res, next){
+    Beer.findById(req.params.id,function(err,newBeer){
+      if(err){ return next(error);}
+      newBeer.reviews.findByIdAndRemove(req.params.reviewid,function(err,deleteReview){
+      if(err){ return next(error);}
+      console.log(newBeer)
+      res.send(newBeer)
+      })
+    })
+  })
+
 
 
 
@@ -77,7 +115,6 @@ app.use(function(err, req, res, next) {
     error: err
   });
 });
-
 
 
 
