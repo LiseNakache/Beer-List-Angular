@@ -1,0 +1,26 @@
+<div class="page-header">
+  <a ui-sref="home">Home</a>
+  <h3>Reviews : 
+    <hr>
+    <ul>
+      <li class="allTheReviews" ng-repeat="review in beer.reviews track by $index">
+        <span><strong>Username : </strong>{{review.username}}, <strong>Review : </strong>{{review.text}}</span>
+      </li>
+    </ul>
+  </h3>
+
+
+  <form ng-submit="addReview()">
+    <h3 class="beer-name">Add a new review to the Beer : <strong>{{ beer.name | uppercase}}</strong> </h3>
+    <div class="form-group">
+      <input type="text" class="form-control" placeholder="Username" ng-model="username"></input>
+    </div>
+    <div class="form-group">
+      <input type="text" class="form-control" placeholder="Review" ng-model="review"></input>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Add the Review</button>
+
+  </form>
+
+</div>

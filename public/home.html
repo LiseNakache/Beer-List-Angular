@@ -1,0 +1,30 @@
+<div class="allTheBeers" ng-repeat="beer in beers track by $index">
+    <main-dir beer="beer" remove-beer="removeBeer($index)"></main-dir>
+    <br>
+    <a class="review-btn" ui-sref="beer({id: beer._id, beerParam: beer})">Reviews</a>
+</div>
+
+
+
+
+
+<form ng-submit="addBeer(newBeer)">
+        <h3>Add a new beer</h3>
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="Beer Name" ng-model="name"></input>
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="Style" ng-model="style"></input>
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="ABV" ng-model="abv"></input>
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="Image URL" ng-model="image"></input>
+        </div>
+        <div class="form-group">
+            <input type="number" class="form-control" placeholder="Rating" ng-model="ratings" min="1" max="5">
+        </div>
+        <button type="submit" class="btn btn-primary">Add</button>
+        
+    </form>
