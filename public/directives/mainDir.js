@@ -7,10 +7,6 @@ app.directive("mainDir", function () {
         templateUrl: "comment.html",
 
 
-
-
-
-
         controller: function ($scope, beerFactory) {
             $scope.inputComment = false
 
